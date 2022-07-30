@@ -18,7 +18,7 @@ class ClassicChair : Chair
 class ClassicSofa : Sofa
 class ClassicCoffeeTable : CoffeeTable
 
-object ModernFurnitureFactory : FurnitureFactory {
+class ModernFurnitureFactory : FurnitureFactory {
     override fun createChair() = ModernChair()
 
     override fun createSofa() = ModernSofa()
@@ -26,7 +26,7 @@ object ModernFurnitureFactory : FurnitureFactory {
     override fun createCoffeeTable() = ModernCoffeeTable()
 }
 
-object ClassicFurnitureFactory : FurnitureFactory {
+class ClassicFurnitureFactory : FurnitureFactory {
     override fun createChair() = ClassicChair()
 
     override fun createSofa() = ClassicSofa()
@@ -55,8 +55,8 @@ lateinit var furnitureType: FurnitureType
  */
 fun main() {
     val factory = when (furnitureType) {
-        FurnitureType.MODERN -> ModernFurnitureFactory
-        FurnitureType.CLASSIC -> ClassicFurnitureFactory
+        FurnitureType.MODERN -> ModernFurnitureFactory()
+        FurnitureType.CLASSIC -> ClassicFurnitureFactory()
     }
 
     val shop = FurnitureShop(factory)
