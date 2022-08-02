@@ -1,27 +1,28 @@
 package creational
 
-interface Transport
+interface Transport {
+    fun dispatch()
+}
 
-class Ship : Transport
-class Truck : Transport
-
-abstract class Logistics {
-    abstract fun createTransport(): Transport
-
-    fun deliver() {
-        createTransport()
+class Ship : Transport {
+    override fun dispatch() {
+        TODO("Not yet implemented")
+    }
+}
+class Truck : Transport {
+    override fun dispatch() {
+        TODO("Not yet implemented")
     }
 }
 
-class RoadLogistics : Logistics() {
+sealed class Logistics(private val transport: Transport) {
 
-    override fun createTransport() = Truck()
+    fun deliver() {
+        transport.dispatch()
+    }
 }
-
-class SeaLogistics : Logistics() {
-
-    override fun createTransport() = Ship()
-}
+object RoadLogistics : Logistics(transport = Truck())
+object SeaLogistics : Logistics(transport = Ship())
 
 enum class LogisticsType { ROAD, SEA }
 
@@ -40,8 +41,8 @@ lateinit var logisticsType: LogisticsType
  */
 fun main() {
     val logistics = when (logisticsType) {
-        LogisticsType.ROAD -> RoadLogistics()
-        LogisticsType.SEA -> SeaLogistics()
+        LogisticsType.ROAD -> RoadLogistics
+        LogisticsType.SEA -> SeaLogistics
     }
 
     logistics.deliver()
