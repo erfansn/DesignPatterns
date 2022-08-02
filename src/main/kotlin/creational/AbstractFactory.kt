@@ -4,12 +4,6 @@ interface Chair
 interface Sofa
 interface CoffeeTable
 
-interface FurnitureFactory {
-    fun createChair(): Chair
-    fun createSofa(): Sofa
-    fun createCoffeeTable(): CoffeeTable
-}
-
 class ModernChair : Chair
 class ModernSofa : Sofa
 class ModernCoffeeTable : CoffeeTable
@@ -18,7 +12,13 @@ class ClassicChair : Chair
 class ClassicSofa : Sofa
 class ClassicCoffeeTable : CoffeeTable
 
-class ModernFurnitureFactory : FurnitureFactory {
+sealed interface FurnitureFactory {
+    fun createChair(): Chair
+    fun createSofa(): Sofa
+    fun createCoffeeTable(): CoffeeTable
+}
+
+object ModernFurnitureFactory : FurnitureFactory {
     override fun createChair() = ModernChair()
 
     override fun createSofa() = ModernSofa()
@@ -26,7 +26,7 @@ class ModernFurnitureFactory : FurnitureFactory {
     override fun createCoffeeTable() = ModernCoffeeTable()
 }
 
-class ClassicFurnitureFactory : FurnitureFactory {
+object ClassicFurnitureFactory : FurnitureFactory {
     override fun createChair() = ClassicChair()
 
     override fun createSofa() = ClassicSofa()
@@ -55,8 +55,8 @@ lateinit var furnitureType: FurnitureType
  */
 fun main() {
     val factory = when (furnitureType) {
-        FurnitureType.MODERN -> ModernFurnitureFactory()
-        FurnitureType.CLASSIC -> ClassicFurnitureFactory()
+        FurnitureType.MODERN -> ModernFurnitureFactory
+        FurnitureType.CLASSIC -> ClassicFurnitureFactory
     }
 
     val shop = FurnitureShop(factory)
