@@ -50,7 +50,7 @@ val StereoOffCommand = fun(stereo: Stereo): Command = fun() {
     stereo.off()
 }
 
-val StereoOnWithCDCommand = fun(stereo: Stereo): Command = fun() {
+val StereoOnWithCdCommand = fun(stereo: Stereo): Command = fun() {
     stereo.on()
     stereo.setCD()
     stereo.setVolume(11)
@@ -88,7 +88,7 @@ fun main() {
     remote.setCommand(LightOnCommand(light))
     remote.onButtonClick()
 
-    remote.setCommand(StereoOnWithCDCommand(stereo))
+    remote.setCommand(StereoOnWithCdCommand(stereo))
     remote.onButtonClick()
 
     remote.setCommand(StereoOffCommand(stereo))
