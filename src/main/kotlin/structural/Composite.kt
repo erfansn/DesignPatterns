@@ -34,7 +34,7 @@ class ImageButton(
     }
 }
 
-class ViewGroup(private val views: List<View>) : View {
+class ViewGroup(val views: List<View>) : View {
 
     constructor(vararg graphics: View) : this(graphics.toList())
 
